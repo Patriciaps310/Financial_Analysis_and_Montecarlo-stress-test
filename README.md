@@ -21,4 +21,4 @@ A Monte Carlo Stress Test was also performed to assess the volatility in extreme
 ![Screenshot](images/monte_carlo_stress_test.png)
 
 # Goals:
-Build a dash app to dynamically show all of the above financial metrics in a selection of 50 individual stocks from S&P500.
+Build a plotly Dash App to dynamically show all of the above financial metrics for a selection of 50 individual stocks from S&P500.
