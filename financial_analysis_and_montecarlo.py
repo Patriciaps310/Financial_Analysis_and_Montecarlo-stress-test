@@ -45,8 +45,7 @@ app.layout = html.Div(children=[
     dcc.Graph(id='candlestick'),
     html.H2("Monte Carlo Simulation - Stock Prices"),
     dcc.Graph(id='monte-carlo-simulation'),
-    html.H2("Distribution of Predicted Prices"),
-    dcc.Graph(id='histogram')
+
 ])
 
 
@@ -55,7 +54,6 @@ app.layout = html.Div(children=[
     Output(component_id='stock-prices', component_property='figure'),
     Output(component_id='candlestick', component_property='figure'),
     Output(component_id='monte-carlo-simulation', component_property='figure'),
-    Output(component_id='histogram', component_property='figure'),
     Input(component_id='ticker-dropdown', component_property='value'),
     Input(component_id='date-picker', component_property='date')
 ])
@@ -266,22 +264,14 @@ def update_graphs(ticker, selected_date):  # argument in this function always re
         ))
 
     fig_monte_carlo.update_layout(
-        title=f"{ticker} Monte Carlo Simulation - Stock Prices",
+        title=f"{ticker} Monte Carlo Simulation - Stress test",
         xaxis_title="Date",
         yaxis_title="Price ( USD)")
 
-    # Create the figure for the histogram
-    last_simulated_prices = [sublist[-1] for sublist in simulated_prices]
-    fig_histogram = go.Figure(data=[go.Histogram(x=last_simulated_prices, nbinsx=200)])
-    fig_histogram.add_vline(x=np.nanpercentile(last_simulated_prices, 5), line_dash='dash', line_color='firebrick')
-    fig_histogram.add_vline(x=np.nanpercentile(last_simulated_prices, 95), line_dash='dash', line_color='firebrick')
-    fig_histogram.update_layout(
-        title="Distribution of Predicted Prices",
-        xaxis_title="Price (USD)",
-        yaxis_title="Frequency"
-    )
 
-    return fig_stock_prices, fig_candlestick, fig_monte_carlo, fig_histogram
+
+
+    return fig_stock_prices, fig_candlestick, fig_monte_carlo
 
 
 if __name__ == '__main__':
